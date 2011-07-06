@@ -9,6 +9,7 @@
 #include <sys/inotify.h>
 #include <getopt.h>
 #include <string.h>
+#include <unistd.h>
 
 #define EVENT_SIZE  ( sizeof (struct inotify_event) )
 #define BUF_LEN     ( 20 * ( EVENT_SIZE + 16 ) )
@@ -84,6 +85,7 @@ int main(int argc, char **argv) {
 		return 1;
 	}
 	read_loop();
+	return 0;
 }
 
 static void read_loop() {
@@ -115,7 +117,7 @@ static void read_loop() {
 				if (ns_saved && cs_saved) {
 					ns_saved = 0;
 					cs_saved = 0;
-					//TODO: Here we go!
+					
 					printf("Export...\r\n");
 					export_dbs(db_path);
 				}
