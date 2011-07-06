@@ -59,6 +59,7 @@ int main(int argc, char **argv) {
 				f = 0;
 		}
 	}
+
 	if (f == 1) {
 		printf("Now forking...\r\n");
 		pid = fork();
@@ -69,6 +70,13 @@ int main(int argc, char **argv) {
 			perror("Unable to fork()");
 			return 1;
 		}
+		if (setpgid(0, 0) < 0) {
+			perror("stdpgid()");
+			return 1;
+		}
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
+		close(STDERR_FILENO);
 	}
 	/*child..*/
 
@@ -103,7 +111,7 @@ static void read_loop() {
 				exit(1);
 			}
 		} else if (!len) {
-			fprintf(stdout, "Error, read() == 0");
+			fprintf(stderr, "Error, read() == 0");
 			exit(1);
 		}
 		while (i < len) {
