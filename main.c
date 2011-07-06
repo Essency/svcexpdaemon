@@ -1,3 +1,7 @@
+/****************************************************************
+ * 		Azzurra IRC Services Export Daemon		*
+ ****************************************************************/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <errno.h>
