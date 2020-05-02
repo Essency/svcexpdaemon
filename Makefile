@@ -2,9 +2,9 @@ RM=/bin/rm
 
 CC= gcc
 # Compile flags
- CFLAGS= -pipe -Wall -O3 -g
-# # linker flags.
- LFLAGS= -lcrypt
+CFLAGS= -pipe -Wall -O3 -g -m32
+# linker flags.
+LDFLAGS=-lcrypt
 
 
 SRCS = datafiles.c crypt_shs1.c main.c export.c
@@ -14,7 +14,7 @@ OBJS = datafiles.o crypt_shs1.o main.o export.o
 all: svcexpd
 
 svcexpd: $(OBJS)
-	$(CC) $(LFLAGS) $(LIBS) $(OBJS) -o $@
+	$(CC) -m32 $(LIBS) $(OBJS) $(LDFLAGS) -o $@
 
 .c.o:
 	$(CC) $(CFLAGS) -c $<
